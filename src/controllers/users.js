@@ -1,11 +1,12 @@
-require('dotenv').config();
-const express = require('express')
-const app = express()
-const port = process.env.PORT || 3000; 
+const express = require('express');
 
-app.use(express.json());
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
 
-app.get('/users', (req, res) => {
+const getAllUsers = (req, res) => {  //tambien se podría usar (req = Request, res = Response)
     const user = [
       {
         id: 1,
@@ -18,8 +19,16 @@ app.get('/users', (req, res) => {
     ]
     
     res.json(user);
-})
-app.post('/users', (req, res) => {
+};
+
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+
+const createUser = (req, res) => {
   const user   = req.body;
   user.id = 1000;
   const result ={
@@ -27,9 +36,16 @@ app.post('/users', (req, res) => {
     user
   };
   res.status(201).json(result);
-})
+};
 
-app.put('/users/:id', (req, res) => {
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+
+const updateUser = (req, res) => {
   const {id} = req.params;
   const user = req.body;
   user.id = id;
@@ -38,9 +54,16 @@ app.put('/users/:id', (req, res) => {
     user,
   };
   res.json(result);
-})
+};
 
-app.patch('/users/:id', (req, res) => {
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+
+const updatePartialUser = (req, res) => {
   const user = {
     id: 45,
     name : 'Toto',
@@ -54,8 +77,16 @@ app.patch('/users/:id', (req, res) => {
     user
   };
   res.json(result);
-})
-app.delete('/users/:id', (req, res) => {
+};
+
+
+/**
+ * 
+ * @param {express.Request} req 
+ * @param {express.Response} res 
+ */
+
+const deleteUser = (req, res) => {
   const id = req.params.id;
   //const { id } = req.params;
 
@@ -64,8 +95,13 @@ app.delete('/users/:id', (req, res) => {
   }
 
   res.json(result);
-})
+};
+
+module.exports = {
+    getAllUsers,
+    createUser,
+    updatePartialUser,
+    updateUser,
+    deleteUser,
+}
  
-app.listen(port, ()=>{
-    console.log(`########### App Started. Port: ${port} ###########`);
-})

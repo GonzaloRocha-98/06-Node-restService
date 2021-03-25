@@ -1,12 +1,11 @@
 {
   "name": "06-Node-restService",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npx nodemon index",
-    "start": "nodex index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "npx nodemon src/index",
+    "start": "nodex index"
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,9 @@
   "homepage": "https://github.com/GonzaloRocha-98/06-Node-restService#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
