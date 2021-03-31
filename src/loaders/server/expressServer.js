@@ -10,7 +10,7 @@ class ExpressServer{
     constructor(){
         this.app = express();
         this.port = config.port;
-        this.basePath = config.api.prefix;
+        this.basePath = `${config.api.prefix}/users`;
         this._middlewares();
         this._routes();
     }
