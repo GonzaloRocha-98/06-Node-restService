@@ -1,8 +1,10 @@
 //configuracion de como levantar express
 
 const express = require('express')
-const config = require('../../config');
 const morgan = require('morgan');
+const swaggerUi = require('swagger-ui-express');
+const logger = require('../logger');
+const config = require('../../config');
 
 
 class ExpressServer{
@@ -12,7 +14,10 @@ class ExpressServer{
         this.port = config.port;
         this.basePath = config.api.prefix;
         this._middlewares();
+        this._swaggerConfig();
         this._routes();
+        this._notFound();
+        this._errorHandler();
     }
 
     _middlewares(){
@@ -29,10 +34,41 @@ class ExpressServer{
         this.app.use(`${this.basePath}/users`, require('../../routes/users'));
     }
 
+    //.use es un middleware asi que va a ejecutar en medio de cuaquier cosa
+
+    _notFound() {
+        this.app.use((req, res, next) => {
+            const err = new Error("Not Found");
+            err.code = 404;
+            next(err);
+        })
+    }
+
+    _errorHandler(){
+        this.app.use((err, req, res, next)=>{
+            const code = err.code || 500;
+            res.status(code);
+            const body = {
+                error: {
+                    code,
+                    message: err.message
+                }
+            }
+            res.json(body);
+        })
+    }
+
+    _swaggerConfig(){
+        this.app.use(
+            config.swagger.path,
+            swaggerUi.serve,
+            swaggerUi.setup(require('../swagger/swagger.json')),
+        );
+    }
     async start(){
         this.app.listen(this.port, (error)=>{
             if(error){
-                console.log(error);
+                logger.error(error);
                 process.exit(1);
                 return;
             }
