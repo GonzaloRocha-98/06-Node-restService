@@ -10,10 +10,10 @@ This is a restAPI base to start new pojects
 - winston
 
 # HOW TO USE
--GET /users : getAllUsers (get all users)
--POST /users : createUser (create a new user)
--PUT /users/:id : updateUser (update a user by id)
--DELETE /users/:id : deleteUser(delete a user by id)
+- GET /users : getAllUsers (get all users)
+- POST /users : createUser (create a new user)
+- PUT /users/:id : updateUser (update a user by id)
+- DELETE /users/:id : deleteUser(delete a user by id)
 
 # HOW TO INSTALL 
 - Clone the repository "git clone https://github.com/GonzaloRocha-98/06-Node-restService.git"
